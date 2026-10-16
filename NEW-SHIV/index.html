@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>myPTE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+    
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+
+  <style>
+    :root {
+      --header: #0d014d;
+      --pearson-secondary-color: #ffffff;
+      --page: #f4f0f8;
+      --ink: #1e1e1e;
+      --muted: #6d6876;
+      --line: #e6e6e6;
+      --purple: #6d35d4;
+      --purple-deep: #5b27c2;
+      --gold: #ffbf14;
+      --magenta: #c21878;
+      --teal: #0e6d64;
+      --card: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", "Open Sans", sans-serif;
+      background: var(--page);
+      color: var(--ink);
+      min-height: 100vh;
+      padding-bottom: 24px;
+    }
+
+    button,
+    a,
+    input {
+      font-family: inherit;
+    }
+
+    [data-edit] {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      font-style: inherit;
+      letter-spacing: inherit;
+      color: inherit;
+      line-height: inherit;
+    }
+
+    .topbar {
+      background: #0d014d;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      padding: 5px 0;
+      z-index: 20;
+    }
+
+    .brand {
+      display: inline-block;
+      width: 200px;
+      margin-left: 91px;
+      position: relative;
+      z-index: 9;
+    }
+
+.brand img {
+    display: inline-block;
+    width: 90%;
+    position: relative;
+    height: 55px;
+    margin-top: 3px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+    .menu-buttons-container {
+      z-index: 8 !important;
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      top: 5px;
+      line-height: 27px;
+      background-color: transparent;
+      height: 64px;
+      left: 0;
+    }
+
+    .menu-buttons-container a {
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      line-height: 61px;
+      margin: 0 18px;
+      font-size: 13px;
+      opacity: 0.7;
+      font-weight: 500;
+      border-bottom: 3px solid transparent;
+    }
+
+    .menu-buttons-container a.active {
+      font-weight: 700;
+      opacity: 1;
+    }
+
+    .tools {
+      position: absolute;
+      right: 97px;
+      top: 4px;
+      height: 64px;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+.date-line {
+  font-weight: 500;
+}
+
+    
+.date-line span {
+  font-weight: 600;
+}
+
+
+    .cart {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .ignite-profile-menu-container .ignite-profile-menu {
+      display: inline-flex;
+      align-items: center;
+      border: 2px solid #fff;
+      padding: 3px 3px 3px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      background-color: #fff;
+      color: #0d014d;
+      gap: 8px;
+      height: 38px;
+    }
+
+    .fal.fa-bars {
+      width: 16px;
+      height: 11px;
+      display: inline-block;
+      flex: 0 0 auto;
+      background:
+        linear-gradient(#1a1248, #1a1248) 0 0 / 100% 1.5px no-repeat,
+        linear-gradient(#1a1248, #1a1248) 0 50% / 100% 1.5px no-repeat,
+        linear-gradient(#1a1248, #1a1248) 0 100% / 100% 1.5px no-repeat;
+    }
+
+    .ignite-profile-user-initials {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      background: #c2c0ff;
+      color: #1a1248;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: -0.3px;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .page {
+      margin: 18px 97px 40px 91px;
+    }
+
+    .meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 14px;
+    }
+
+    .when {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 2px;
+    }
+
+    .back {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid #512eab;
+      display: grid;
+      color: #512eab;
+      place-items: center;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+     
+    .test-line {
+      margin: 0;
+      color: #8d8a96;
+      font-size: 12px;
+      font-weight: 400;
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.2;
+    }
+
+    .date-line {
+      margin: 2px 0 0;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.15;
+      color: #1a1a1a;
+    }
+
+    .share-wrap {
+      text-align: right;
+      width: max-content;
+      flex: 0 0 auto;
+      max-width: 100%;
+    }
+
+    .btn.share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #522dae;
+      color: #fff;
+      border: 0;
+      border-radius: 999px;
+      height: 52px;
+      padding: 0 28px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn.share:hover {
+      background: #452496;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #512eab;
+      color: #fff;
+      border: 0;
+      border-radius: 999px;
+      min-width: 0;
+      padding: 20px 18px;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+.section-head span{
+  color: #393c3d  !important;
+}
+    .btn:hover {
+      background: var(--purple-deep);
+    }
+
+    .btn.small {
+      min-width: 0;
+      font-size: 20px;
+      padding: 10px 18px;
+    }
+
+    .share-note {
+      margin: 6px 0 0;
+      color: #9a96a3;
+      font-size: 12px;
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .report {
+      background: #f8f8f8;
+      border: 1px solid #e6e1ee;
+      box-shadow: 0 1px 2px rgba(40, 16, 70, 0.04);
+      overflow: hidden;
+      margin-bottom: 16px;
+      margin-top: 45px;
+    }
+
+    .banner {
+      background: var(--gold);
+      margin: 14px 54px 0;
+      padding: 14px 18px 12px;
+    }
+
+    .banner h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .banner p {
+      margin: 3px 0 0;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    .sheet {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      margin: 15px 54px;
+      background: white;
+      border: 1px solid var(--line);
+      border-top: none;
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 16px 20px 18px;
+    }
+
+    .overview-pane {
+      grid-column: 1 / span 2;
+    }
+
+    .skills-pane {
+      grid-column: 3 / span 2;
+      border-left: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #393939 !important;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      margin: -16px -20px 16px;
+      padding: 14px 20px 12px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .info-i {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #b7b2bd;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      font-size: 10px;
+      color: #8a8492;
+      font-weight: 700;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .taker {
+      display: flex;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .photo {
+      width: 108px;
+      height: 136px;
+      background: #e7eef2;
+      border: 1px solid #e4e4e4;
+      overflow: hidden;
+      display: block;
+      position: relative;
+      flex: 0 0 auto;
+      cursor: default;
+    }
+
+    .photo img,
+    .photo svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo img[hidden],
+    .photo svg[hidden] {
+      display: none;
+    }
+
+    .photo-hint {
+      display: none;
+      margin: 6px 0 0;
+      font-size: 11px;
+      color: var(--purple);
+      font-family: "Open Sans", sans-serif;
+    }
+
+    .taker h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .taker p {
+      margin: 0 0 3px;
+      font-size: 13px;
+      color: #6a6570;
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .badge-wrap {
+      position: relative;
+      width: 96px;
+      margin: 0 px 0 12px;
+      flex: 0 0 auto;
+    }
+
+    .badge {
+      width: 76px;
+      height: 84px;
+      background: #a2007d;
+      color: #fff;
+      border-radius: 16px 16px 52px 52px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .badge-tag {
+      position: static;
+      top: auto;
+      left: auto;
+      transform: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 25px;
+      margin: 0;
+      background: #015369;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0;
+      padding: 0 4px;
+      border-radius: 0;
+      white-space: nowrap;
+    }
+
+    .badge .num-overall {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      line-height: 1;
+      padding-bottom: 6px;
+    }
+    .magnify img {
+    display: inline-block;
+    width: auto;
+    position: relative;
+    height: 55px;
+    margin-top: 3px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+    .skills {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 4px 0 0;
+    }
+
+    .skill {
+      text-align: center;
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .meter {
+      position: relative;
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 8px;
+    }
+
+    .meter svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .num {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .skill-name {
+      display: block;
+      color: #8a8494;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .detail {
+      padding: 16px 22px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .centre {
+      grid-column: 1;
+    }
+
+    .dates {
+      grid-column: 2;
+      border-left: 1px solid var(--line);
+    }
+
+    .further {
+      grid-column: 3 / span 2;
+      border-left: 1px solid var(--line);
+    }
+
+.external-link-icon {
+  width: 26px;
+  height: 26px;
+  border: 2px solid white;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.external-link-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+    .detail p,
+    .candidate p {
+      margin: 0 0 2px !important;
+      font-size: 13.5px;
+      color: #393939;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    .detail strong,
+    .candidate strong {
+      font-weight: 700;
+    }
+
+    .further h3 {
+      margin: -16px -22px 14px;
+      padding: 16px 22px 12px;
+      border-bottom: 1px solid var(--line);
+       color: #393939 !important;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .further p {
+      margin: 0;
+      color: #6a6572;
+      font-size: 13.5px;
+      font-style: italic;
+      font-family: "Open Sans", sans-serif;
+      max-width: none;
+    }
+
+
+    .lower {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line);
+      margin: 0 54px;
+    }
+
+    .chart-col,
+    .candidate {
+      padding: 0 22px 20px;
+      background: white;
+    }
+
+    .chart-col {
+      border-right: 1px solid var(--line);
+    }
+
+    .section-title,
+    .candidate h3 {
+      margin: 0 -22px 16px;
+      padding: 14px 22px 12px;
+      border-bottom: 1px solid var(--line);
+      color: #393939 !important;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .plot {
+      --label: 92px;
+      --score: 34px;
+      --gap: 10px;
+      position: relative;
+      margin-top: 28px;
+    }
+
+    .overall-line {
+    position: absolute;
+    top: 0;
+    bottom: -3px;
+    opacity: 0.5;
+    width: 3px;
+    background: #393939;
+    z-index: 2;
+    left: calc(var(--label) + var(--score) + (var(--gap) * 2) + (100% - var(--label) - var(--score) - (var(--gap) * 2)) * var(--pos, 0.6125));
+}
+    .overall-cap {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -115%);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      font-family: "Open Sans", sans-serif;
+      color: #222;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: var(--label) var(--score) 1fr;
+      align-items: center;
+      column-gap: var(--gap);
+      margin: 8px 0;
+      font-size: 13px;
+      font-family: "Open Sans", sans-serif;
+      color: #3a3a3a;
+    }
+
+    .bar-score {
+      font-style: normal;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .track {
+      height: 16px;
+    }
+
+    .fill {
+      height: 16px;
+    }
+
+    .fill.listen {
+      background: #102a4c;
+    }
+
+    .fill.read {
+      background: #f0d000;
+    }
+
+    .fill.speak {
+      background: #8d8d8d;
+    }
+
+    .fill.write {
+      background: #c2187a;
+    }
+
+    .pdf-wrap {
+      text-align: center;
+      padding: 18px 0 6px;
+    }
+
+    .profile {
+      margin-top: 0;
+      background: #fff;
+      border: 1px solid #efeaf4;
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+ .profile-left {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    gap: 10px;
+    position: relative;
+    color: #4c4854;
+    font-size: 13.5px;
+    font-family: "Open Sans", sans-serif;
+}
+.profile-left span {
+    position: absolute;
+    top: 25px;
+    left: 65px;
+    font-size: 16px;
+}
+
+    .bulb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #efe7f8;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px 16px 8px;
+      font-size: 12px;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    footer a {
+      color: #6d35d4;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    .edit-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 40;
+      height: 28px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 6px;
+      background: #2a1158;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(20, 8, 40, 0.28);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .edit-btn.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body.editing .edit-btn {
+      background: var(--teal);
+    }
+
+    body.editing [data-edit] {
+      outline: 1px dashed #b9a6de;
+      outline-offset: 2px;
+      background: rgba(109, 53, 212, 0.05);
+      border-radius: 2px;
+      cursor: text;
+    }
+
+    body.editing .photo {
+      cursor: pointer;
+      outline: 2px dashed var(--purple);
+      outline-offset: 3px;
+    }
+
+    body.editing .photo-hint {
+      display: block;
+    }
+
+    body.editing .badge {
+      cursor: text;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+
+      .sheet,
+      .lower {
+        grid-template-columns: 1fr;
+      }
+
+      .overview-pane,
+      .skills-pane,
+      .centre,
+      .dates,
+      .further {
+        grid-column: auto;
+      }
+
+      .skills-pane,
+      .dates,
+      .further,
+      .chart-col {
+        border-left: 0;
+      }
+
+      .skills-pane,
+      .dates {
+        border-top: 1px solid var(--line);
+      }
+
+      .chart-col {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .menu-buttons-container {
+        display: none;
+        position: static;
+        order: 5;
+        flex: 1 0 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        text-align: left;
+        margin: 4px 0 8px;
+        top: auto;
+      }
+
+      .menu-toggle:checked~.topbar .menu-buttons-container {
+        display: flex;
+      }
+
+      .topbar {
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 90px;
+        padding: 0 16px 10px;
+      }
+
+      .brand {
+        order: 1;
+        width: 160px;
+        margin-left: 0;
+      }
+
+      .tools {
+        order: 2;
+        position: static;
+        margin-left: auto;
+        height: auto;
+        top: auto;
+      }
+
+      .menu-buttons-container a {
+        padding: 12px 0;
+        width: 100%;
+        line-height: 27px;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .12);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        margin: 16px 12px 28px;
+      }
+
+      .meta {
+        flex-direction: column;
+      }
+
+      .share-wrap {
+        text-align: left;
+        width: 100%;
+      }
+
+      .share-note {
+        white-space: normal;
+      }
+
+      .btn.share,
+      .btn {
+        width: 100%;
+      }
+
+      .score-row {
+        flex-direction: column;
+      }
+
+      .skills {
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .profile {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .date-line {
+        font-size: 16px;
+      }
+
+      .plot {
+        --label: 78px;
+        --score: 28px;
+        --gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <input class="menu-toggle" id="nav-toggle" type="checkbox" hidden>
+  <header class="topbar">
+    <a class="brand" href="#report" aria-label="Pearson">
+      <img src="pearson-logo.png" alt="Pearson">
+    </a>
+    <nav class="menu-buttons-container">
+      <a href="#report">myPTE</a>
+      <a class="active" href="#report">My Activity</a>
+      <a href="#report">Smart Prep</a>
+      <a href="#report">Help</a>
+    </nav>
+    <div class="tools">
+      <button class="cart" type="button" aria-label="Cart">
+        <svg width="26" height="26" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3 4h2l1.4 8.2a1 1 0 0 0 1 .8h7.2a1 1 0 0 0 1-.8L17 7H6" stroke="white" stroke-width="1.5"
+            stroke-linecap="round" />
+          <circle cx="8.2" cy="16.2" r="1.1" fill="white" />
+          <circle cx="14.2" cy="16.2" r="1.1" fill="white" />
+        </svg>
+      </button>
+      <div class="ignite-profile-menu-container">
+        <label class="ignite-profile-menu" for="nav-toggle">
+          <i class="fal fa-bars" aria-hidden="true"></i>
+         <span class="ignite-profile-user-initials" data-edit="profile-initials">H.</span>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" id="report">
+    <div class="meta">
+      <div class="when">
+        <button class="back" type="button" aria-label="Back">
+          
+
+<svg width="26" height="26" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+  <path
+    d="M16 10H4M9 5L4 10L9 15"
+    stroke="#512eab"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
+
+
+        </button>
+        <div>
+          <p class="test-line"><span data-edit="exam">PTE Core • ID535790523</span></p>
+          <p class="date-line"><span data-edit="when">Thursday, May 21, 2026 </span> </p>
+        </div>
+      </div>
+      <div class="share-wrap">
+        <button class="btn share" type="button">
+         
+
+<div class="external-link-icon">
+  <svg
+    width="19"
+    height="19"
+    viewBox="0 0 16 16"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M4 12L12 4M6 4H12V10"
+      stroke="white"
+      stroke-width="1.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</div>
+
+
+          Share results
+        </button>
+        <p class="share-note">Click the button above to search for an institution to share your score.</p>
+      </div>
+    </div>
+
+    <article class="report">
+      <header class="banner">
+        <h1><span data-edit="title">PTE Core | Score Report</span></h1>
+        <p>Score Report Code: <span data-edit="code">2e049eR5EE</span></p>
+      </header>
+
+      <section class="sheet">
+        <div class="pane overview-pane">
+          <h2 class="section-head"><span data-edit="overview-label">Scores Overview</span><span class="info-i">i</span>
+          </h2>
+          <div class="score-row">
+            <div class="taker">
+              <div>
+                <label class="photo" id="photoLabel">
+                  <input id="photoInput" type="file" accept="image/*" hidden>
+                  <img id="photoImg" alt="Test taker photo" hidden>
+                  <svg id="photoFallback" viewBox="0 0 96 120" aria-hidden="true">
+                    <rect width="96" height="120" fill="#d5e2ea" />
+                    <rect y="82" width="96" height="38" fill="#1c4860" />
+                    <circle cx="48" cy="48" r="18" fill="#e8ccb8" />
+                    <path d="M30 52c2-16 10-24 18-24s16 8 18 24c-6 4-12 6-18 6s-12-2-18-6z" fill="#2a211c" />
+                  </svg>
+                </label>
+                <p class="photo-hint">Click the photo to upload</p>
+              </div>
+              <div>
+                <h2><span data-edit="name">Harjot Kaur .</span></h2>
+                <p ><b>Test Taker ID:</b> <span data-edit="taker-id">PTE003015838</span></p>
+                <p><b>Registration ID:</b> <span data-edit="reg-id">535790523</span></p>
+              </div>
+            </div>
+            <div class="badge-wrap">
+              <div class="badge" aria-label="Overall Score 59">
+                <div class="badge-tag"><span data-edit="overall-label">Overall Score</span></div>
+                <span class="num-overall" data-edit="overall" data-sync="overall">59</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pane skills-pane">
+          <h2 class="section-head"><span data-edit="skills-label">Communicative Skills</span><span
+              class="info-i">i</span></h2>
+          <div class="skills">
+            <div class="skill">
+              <div class="meter" data-color="#16325c">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#ececec" stroke-width="7" />
+                  <circle class="arc" cx="60" cy="60" r="46" fill="none" stroke="#16325c" stroke-width="7"
+                    stroke-linecap="round" transform="rotate(-90 60 60)" />
+                </svg>
+                <span class="num" data-edit="listen" data-sync="listen">62</span>
+              </div>
+              <span class="skill-name" data-edit="listen-name">Listening</span>
+            </div>
+            <div class="skill">
+              <div class="meter" data-color="#e0be00">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#ececec" stroke-width="7" />
+                  <circle class="arc" cx="60" cy="60" r="46" fill="none" stroke="#e0be00" stroke-width="7"
+                    stroke-linecap="round" transform="rotate(-90 60 60)" />
+                </svg>
+                <span class="num" data-edit="read" data-sync="read">54</span>
+              </div>
+              <span class="skill-name" data-edit="read-name">Reading</span>
+            </div>
+            <div class="skill">
+              <div class="meter" data-color="#6a6a6a">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#ececec" stroke-width="7" />
+                  <circle class="arc" cx="60" cy="60" r="46" fill="none" stroke="#6a6a6a" stroke-width="7"
+                    stroke-linecap="round" transform="rotate(-90 60 60)" />
+                </svg>
+                <span class="num" data-edit="speak" data-sync="speak">74</span>
+              </div>
+              <span class="skill-name" data-edit="speak-name">Speaking</span>
+            </div>
+            <div class="skill">
+              <div class="meter" data-color="#c02690">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#ececec" stroke-width="7" />
+                  <circle class="arc" cx="60" cy="60" r="46" fill="none" stroke="#c02690" stroke-width="7"
+                    stroke-linecap="round" transform="rotate(-90 60 60)" />
+                </svg>
+                <span class="num" data-edit="write" data-sync="write">58</span>
+              </div>
+              <span class="skill-name" data-edit="write-name">Writing</span>
+            </div>
+          </div>
+        </div>
+        <div class="detail centre">
+          <p><strong>Test Centre Country:</strong> <span data-edit="centre-country">Canada</span></p>
+          <p><strong>Test Centre ID:</strong> <span data-edit="centre-id">83892</span></p>
+          <p><strong>Test Centre:</strong> <span data-edit="centre-name">ILTTS</span></p>
+        </div>
+        <div class="detail dates">
+          <p><strong>Test Date:</strong> <span data-edit="test-date">21 May 2026</span></p>
+          <p><strong>Valid Until:</strong> <span data-edit="valid-until">21 May 2028</span></p>
+          <p><strong>Issue Date:</strong> <span data-edit="issue-date">21 May 2026</span></p>
+        </div>
+        <div class="detail further">
+          <h3><span data-edit="further-label">Further Information</span></h3>
+          <p data-edit="further-text" data-multiline="true">PTE Core is designed to test English language proficiency
+            for a range of general purposes.</p>
+        </div>
+      </section>
+
+      <section class="lower-wrap">
+        <div class="lower">
+          <div class="chart-col">
+            <h3 class="section-title"><span data-edit="breakdown-label">Skills Breakdown</span></h3>
+            <div class="plot" id="plot">
+              <div class="overall-line" id="overallLine"><span class="overall-cap">Overall <span
+                    data-edit="overall-chart" data-sync="overall">59</span></span></div>
+              <div class="bar-row"><span data-edit="bar-listen-name">Listening</span><em class="bar-score"
+                  data-edit="listen-bar" data-sync="listen">62</em>
+                <div class="track">
+                  <div class="fill listen"></div>
+                </div>
+              </div>
+              <div class="bar-row"><span data-edit="bar-read-name">Reading</span><em class="bar-score"
+                  data-edit="read-bar" data-sync="read">54</em>
+                <div class="track">
+                  <div class="fill read"></div>
+                </div>
+              </div>
+              <div class="bar-row"><span data-edit="bar-speak-name">Speaking</span><em class="bar-score"
+                  data-edit="speak-bar" data-sync="speak">74</em>
+                <div class="track">
+                  <div class="fill speak"></div>
+                </div>
+              </div>
+              <div class="bar-row"><span data-edit="bar-write-name">Writing</span><em class="bar-score"
+                  data-edit="write-bar" data-sync="write">58</em>
+                <div class="track">
+                  <div class="fill write"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="candidate">
+            <h3><span data-edit="candidate-label">Candidate Information</span></h3>
+            <p><strong>Date of Birth:</strong> <span data-edit="dob">05 Feb 1999</span></p>
+            <p><strong>Country of Citizenship:</strong> <span data-edit="citizenship">India</span></p>
+            <p><strong>Country of Residence:</strong> <span data-edit="residence">Canada</span></p>
+            <p><strong>Gender:</strong> <span data-edit="gender">Female</span></p>
+          </div>
+        </div>
+        <div class="pdf-wrap"><button class="btn small" type="button">View as pdf</button></div>
+      </section>
+    </article>
+
+
+    <section class="profile">
+      <div class="profile-left">
+      <div class="">
+         <a class="magnify" href="#report" aria-label="Pearson">
+      <img src="orange_magnifying_glass.png" alt="Pearson">
+    </a>
+        <span data-edit="profile-note">Your Skills Profile provides more information about your performance in the
+          test.</span>
+      </div>
+      </div>
+      <a class="btn small" href="#report">View skills profile</a>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#report">Privacy policy</a>
+    <a href="#report">Cookies</a>
+    <a href="#report">Contact us</a>
+  </footer>
+
+  <button class="edit-btn" id="editBtn" type="button">Edit</button>
+
+  <script>
+    const STORAGE = "pte-score-report-edits";
+    const editBtn = document.getElementById("editBtn");
+    const photoInput = document.getElementById("photoInput");
+    const photoImg = document.getElementById("photoImg");
+    const photoFallback = document.getElementById("photoFallback");
+    const photoLabel = document.getElementById("photoLabel");
+    const fields = () => document.querySelectorAll("[data-edit]");
+    let editing = false;
+
+    function scoreOf(text) {
+      const raw = parseFloat(String(text).replace(/[^\d.]/g, ""));
+      return Number.isFinite(raw) ? Math.max(0, Math.min(90, raw)) : 0;
+    }
+
+    function paintRing(meter) {
+      const arc = meter.querySelector(".arc");
+      const radius = parseFloat(arc.getAttribute("r")) || 46;
+      const circ = 2 * Math.PI * radius;
+      arc.setAttribute("stroke-dasharray", circ + " 0");
+    }
+
+    function paintBar(row) {
+      const score = scoreOf(row.querySelector(".bar-score").textContent);
+      const shown = Math.max(score, 10);
+      row.querySelector(".fill").style.width = ((shown - 10) / 80) * 100 + "%";
+    }
+
+    function paintTicks() {
+      const score = Math.max(scoreOf(document.querySelector('[data-sync="overall"]').textContent), 10);
+      document.getElementById("plot").style.setProperty("--pos", String((score - 10) / 80));
+    }
+
+    function paintAll() {
+      document.querySelectorAll(".meter").forEach(paintRing);
+      document.querySelectorAll(".bar-row").forEach(paintBar);
+      paintTicks();
+    }
+
+    function showPhoto(src) {
+      if (!src) return;
+      photoImg.src = src;
+      photoImg.hidden = false;
+      photoFallback.hidden = true;
+    }
+
+    function save() {
+      const data = { photo: photoImg.getAttribute("src") || "" };
+      fields().forEach((el) => { data[el.dataset.edit] = el.innerText; });
+      localStorage.setItem(STORAGE, JSON.stringify(data));
+    }
+
+    function restore() {
+      try {
+        const data = JSON.parse(localStorage.getItem(STORAGE) || "null");
+        if (!data) return;
+        fields().forEach((el) => {
+          if (typeof data[el.dataset.edit] === "string") el.textContent = data[el.dataset.edit];
+        });
+        if (data.photo) showPhoto(data.photo);
+      } catch (err) { /* keep the original report text */ }
+    }
+
+    function setEditing(on) {
+      editing = on;
+      document.body.classList.toggle("editing", on);
+      fields().forEach((el) => { el.contentEditable = on ? "true" : "false"; });
+      editBtn.textContent = on ? "Done" : "Edit";
+      if (!on) save();
+    }
+
+    editBtn.addEventListener("click", () => setEditing(!editing));
+
+    const pageEnd = document.querySelector("footer");
+    const endWatch = new IntersectionObserver((entries) => {
+      editBtn.classList.toggle("is-visible", editing || entries[0].isIntersecting);
+    }, { threshold: 0.35 });
+    endWatch.observe(pageEnd);
+
+    photoLabel.addEventListener("click", (event) => {
+      if (!editing) event.preventDefault();
+    });
+
+    photoInput.addEventListener("change", () => {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => showPhoto(reader.result);
+      reader.readAsDataURL(file);
+    });
+
+    document.body.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      const el = event.target;
+      if (el.dataset && el.dataset.edit && !el.dataset.multiline) event.preventDefault();
+    });
+
+    document.body.addEventListener("input", (event) => {
+      const el = event.target;
+      if (!el.dataset || !el.dataset.sync) {
+        paintAll();
+        return;
+      }
+      const value = el.textContent;
+      document.querySelectorAll('[data-sync="' + el.dataset.sync + '"]').forEach((other) => {
+        if (other !== el) other.textContent = value;
+      });
+      paintAll();
+    });
+
+    restore();
+    paintAll();
+  </script>
+</body>
+
+</html>
